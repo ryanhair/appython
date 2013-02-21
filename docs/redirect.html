@@ -1,0 +1,18 @@
+<html>
+<body>
+
+<form id="redirectform" method="POST" action="http://mokidocs.appspot.com/"></form>
+
+<script>
+	window.data = <<% PROJECT_DATA %>>;
+
+	window.form = document.getElementById('redirectform');
+	var input = document.createElement('input');
+	input.setAttribute('name', 'json');
+	input.setAttribute('value', JSON.stringify(data));
+	window.form.appendChild(input);
+	window.form.submit();
+</script>
+
+</body>
+</html>

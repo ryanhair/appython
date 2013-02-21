@@ -1,0 +1,506 @@
+{
+    "project": "visionhubweb", 
+    "models": {
+        "Prescription": {
+            "rightAxis": {
+                "default": null, 
+                "required": false, 
+                "choices": null, 
+                "repeated": false, 
+                "indexed": true, 
+                "type": "Float"
+            }, 
+            "leftSphere": {
+                "default": null, 
+                "required": false, 
+                "choices": null, 
+                "repeated": false, 
+                "indexed": true, 
+                "type": "Float"
+            }, 
+            "leftAxis": {
+                "default": null, 
+                "required": false, 
+                "choices": null, 
+                "repeated": false, 
+                "indexed": true, 
+                "type": "Float"
+            }, 
+            "rightCylinder": {
+                "default": null, 
+                "required": false, 
+                "choices": null, 
+                "repeated": false, 
+                "indexed": true, 
+                "type": "Float"
+            }, 
+            "leftCylinder": {
+                "default": null, 
+                "required": false, 
+                "choices": null, 
+                "repeated": false, 
+                "indexed": true, 
+                "type": "Float"
+            }, 
+            "rightAdd": {
+                "default": null, 
+                "required": false, 
+                "choices": null, 
+                "repeated": false, 
+                "indexed": true, 
+                "type": "Float"
+            }, 
+            "rightSphere": {
+                "default": null, 
+                "required": false, 
+                "choices": null, 
+                "repeated": false, 
+                "indexed": true, 
+                "type": "Float"
+            }, 
+            "leftAdd": {
+                "default": null, 
+                "required": false, 
+                "choices": null, 
+                "repeated": false, 
+                "indexed": true, 
+                "type": "Float"
+            }
+        }, 
+        "Frame": {
+            "image": {
+                "default": null, 
+                "required": true, 
+                "choices": null, 
+                "repeated": false, 
+                "indexed": true, 
+                "type": "BlobKey"
+            }, 
+            "code": {
+                "default": null, 
+                "required": true, 
+                "choices": null, 
+                "repeated": false, 
+                "indexed": true, 
+                "type": "String"
+            }
+        }, 
+        "Sale": {
+            "shippingAddress": {
+                "default": null, 
+                "required": false, 
+                "choices": null, 
+                "repeated": false, 
+                "indexed": true, 
+                "type": "Key"
+            }, 
+            "prescription": {
+                "default": null, 
+                "required": false, 
+                "choices": null, 
+                "repeated": false, 
+                "indexed": true, 
+                "type": "Key"
+            }, 
+            "notes": {
+                "default": null, 
+                "required": false, 
+                "choices": null, 
+                "repeated": false, 
+                "indexed": false, 
+                "type": "Text"
+            }, 
+            "creditCardTransactionId": {
+                "default": null, 
+                "required": false, 
+                "choices": null, 
+                "repeated": false, 
+                "indexed": true, 
+                "type": "String"
+            }, 
+            "pdImages": {
+                "default": null, 
+                "required": false, 
+                "choices": null, 
+                "repeated": true, 
+                "indexed": true, 
+                "type": "Key"
+            }, 
+            "emailAddress": {
+                "default": null, 
+                "required": false, 
+                "choices": null, 
+                "repeated": false, 
+                "indexed": true, 
+                "type": "String"
+            }, 
+            "user": {
+                "default": null, 
+                "required": true, 
+                "choices": null, 
+                "repeated": false, 
+                "indexed": true, 
+                "type": "Key"
+            }, 
+            "billingAddress": {
+                "default": null, 
+                "required": false, 
+                "choices": null, 
+                "repeated": false, 
+                "indexed": true, 
+                "type": "Key"
+            }, 
+            "discountCode": {
+                "default": null, 
+                "required": false, 
+                "choices": null, 
+                "repeated": false, 
+                "indexed": true, 
+                "type": "Key"
+            }, 
+            "filled": {
+                "default": null, 
+                "required": false, 
+                "choices": null, 
+                "repeated": false, 
+                "indexed": true, 
+                "type": "DateTime"
+            }, 
+            "glasses": {
+                "default": null, 
+                "required": false, 
+                "choices": null, 
+                "repeated": true, 
+                "indexed": true, 
+                "type": "Key"
+            }
+        }, 
+        "Discount": {
+            "amount": {
+                "default": null, 
+                "required": false, 
+                "choices": null, 
+                "repeated": false, 
+                "indexed": true, 
+                "type": "Float"
+            }, 
+            "percentage": {
+                "default": null, 
+                "required": false, 
+                "choices": null, 
+                "repeated": false, 
+                "indexed": true, 
+                "type": "Float"
+            }, 
+            "expiration": {
+                "default": null, 
+                "required": false, 
+                "choices": null, 
+                "repeated": false, 
+                "indexed": true, 
+                "type": "DateTime"
+            }, 
+            "numUses": {
+                "default": null, 
+                "required": false, 
+                "choices": null, 
+                "repeated": false, 
+                "indexed": true, 
+                "type": "Integer"
+            }
+        }, 
+        "Session": {
+            "authToken": {
+                "default": null, 
+                "required": true, 
+                "choices": null, 
+                "repeated": false, 
+                "indexed": true, 
+                "type": "String"
+            }, 
+            "expires": {
+                "default": null, 
+                "required": false, 
+                "choices": null, 
+                "repeated": false, 
+                "indexed": true, 
+                "type": "DateTime"
+            }, 
+            "user": {
+                "default": null, 
+                "required": true, 
+                "choices": null, 
+                "repeated": false, 
+                "indexed": true, 
+                "type": "Key"
+            }
+        }, 
+        "User": {
+            "shippingAddress": {
+                "default": null, 
+                "required": false, 
+                "choices": null, 
+                "repeated": false, 
+                "indexed": true, 
+                "type": "Key"
+            }, 
+            "temporary": {
+                "default": null, 
+                "required": true, 
+                "choices": null, 
+                "repeated": false, 
+                "indexed": true, 
+                "type": "Boolean"
+            }, 
+            "firstName": {
+                "default": null, 
+                "required": true, 
+                "choices": null, 
+                "repeated": false, 
+                "indexed": true, 
+                "type": "String"
+            }, 
+            "lastName": {
+                "default": null, 
+                "required": true, 
+                "choices": null, 
+                "repeated": false, 
+                "indexed": true, 
+                "type": "String"
+            }, 
+            "billingAddress": {
+                "default": null, 
+                "required": false, 
+                "choices": null, 
+                "repeated": false, 
+                "indexed": true, 
+                "type": "Key"
+            }, 
+            "prescription": {
+                "default": null, 
+                "required": false, 
+                "choices": null, 
+                "repeated": false, 
+                "indexed": true, 
+                "type": "Key"
+            }, 
+            "password": {
+                "default": null, 
+                "required": true, 
+                "choices": null, 
+                "repeated": false, 
+                "indexed": true, 
+                "type": "String"
+            }, 
+            "email": {
+                "default": null, 
+                "required": true, 
+                "choices": null, 
+                "repeated": false, 
+                "indexed": true, 
+                "type": "String"
+            }
+        }, 
+        "Address": {
+            "city": {
+                "default": null, 
+                "required": false, 
+                "choices": null, 
+                "repeated": false, 
+                "indexed": true, 
+                "type": "String"
+            }, 
+            "state": {
+                "default": null, 
+                "required": false, 
+                "choices": null, 
+                "repeated": false, 
+                "indexed": true, 
+                "type": "String"
+            }, 
+            "street": {
+                "default": null, 
+                "required": false, 
+                "choices": null, 
+                "repeated": false, 
+                "indexed": true, 
+                "type": "String"
+            }, 
+            "apt": {
+                "default": null, 
+                "required": false, 
+                "choices": null, 
+                "repeated": false, 
+                "indexed": true, 
+                "type": "String"
+            }, 
+            "zip": {
+                "default": null, 
+                "required": false, 
+                "choices": null, 
+                "repeated": false, 
+                "indexed": true, 
+                "type": "String"
+            }
+        }, 
+        "PDImage": {
+            "leftPupilY": {
+                "default": null, 
+                "required": false, 
+                "choices": null, 
+                "repeated": false, 
+                "indexed": true, 
+                "type": "Float"
+            }, 
+            "leftPupilX": {
+                "default": null, 
+                "required": false, 
+                "choices": null, 
+                "repeated": false, 
+                "indexed": true, 
+                "type": "Float"
+            }, 
+            "toolRightCenterY": {
+                "default": null, 
+                "required": false, 
+                "choices": null, 
+                "repeated": false, 
+                "indexed": true, 
+                "type": "Float"
+            }, 
+            "toolLeftRadius": {
+                "default": null, 
+                "required": false, 
+                "choices": null, 
+                "repeated": false, 
+                "indexed": true, 
+                "type": "Float"
+            }, 
+            "image": {
+                "default": null, 
+                "required": true, 
+                "choices": null, 
+                "repeated": false, 
+                "indexed": true, 
+                "type": "BlobKey"
+            }, 
+            "pdCal": {
+                "default": null, 
+                "required": false, 
+                "choices": null, 
+                "repeated": false, 
+                "indexed": true, 
+                "type": "Float"
+            }, 
+            "toolLeftCenterX": {
+                "default": null, 
+                "required": false, 
+                "choices": null, 
+                "repeated": false, 
+                "indexed": true, 
+                "type": "Float"
+            }, 
+            "toolLeftCenterY": {
+                "default": null, 
+                "required": false, 
+                "choices": null, 
+                "repeated": false, 
+                "indexed": true, 
+                "type": "Float"
+            }, 
+            "toolRightRadius": {
+                "default": null, 
+                "required": false, 
+                "choices": null, 
+                "repeated": false, 
+                "indexed": true, 
+                "type": "Float"
+            }, 
+            "toolRightCenterX": {
+                "default": null, 
+                "required": false, 
+                "choices": null, 
+                "repeated": false, 
+                "indexed": true, 
+                "type": "Float"
+            }, 
+            "rightPupilY": {
+                "default": null, 
+                "required": false, 
+                "choices": null, 
+                "repeated": false, 
+                "indexed": true, 
+                "type": "Float"
+            }, 
+            "rightPupilX": {
+                "default": null, 
+                "required": false, 
+                "choices": null, 
+                "repeated": false, 
+                "indexed": true, 
+                "type": "Float"
+            }
+        }, 
+        "PDSample": {
+            "image": {
+                "default": null, 
+                "required": true, 
+                "choices": null, 
+                "repeated": false, 
+                "indexed": true, 
+                "type": "BlobKey"
+            }, 
+            "image_url": {
+                "default": null, 
+                "required": false, 
+                "choices": null, 
+                "repeated": false, 
+                "indexed": true, 
+                "type": "String"
+            }, 
+            "pd": {
+                "default": null, 
+                "required": true, 
+                "choices": null, 
+                "repeated": false, 
+                "indexed": true, 
+                "type": "Float"
+            }
+        }, 
+        "Glasses": {
+            "thinAndLight": {
+                "default": null, 
+                "required": false, 
+                "choices": null, 
+                "repeated": false, 
+                "indexed": true, 
+                "type": "Boolean"
+            }, 
+            "frame": {
+                "default": null, 
+                "required": false, 
+                "choices": null, 
+                "repeated": false, 
+                "indexed": true, 
+                "type": "Key"
+            }, 
+            "transitions": {
+                "default": null, 
+                "required": false, 
+                "choices": null, 
+                "repeated": false, 
+                "indexed": true, 
+                "type": "Boolean"
+            }, 
+            "prescription": {
+                "default": null, 
+                "required": false, 
+                "choices": null, 
+                "repeated": false, 
+                "indexed": true, 
+                "type": "String"
+            }
+        }
+    }, 
+    "version": "0.0.0.1"
+}
