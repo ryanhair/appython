@@ -219,7 +219,7 @@ def gen_handler_class(sub, inherit_from=webapp2.RequestHandler):
 				else:
 					passed_in_params[key] = None
 
-			if hasattr(self, 'data'):
+			if hasattr(self, 'data') and isinstance(self.data, dict):
 				for key, value in self.data.iteritems():
 					if key in passed_in_params:
 						if not isinstance(passed_in_params[key], list):
