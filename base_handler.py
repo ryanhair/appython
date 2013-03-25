@@ -116,7 +116,7 @@ def gen_handler_class(sub, inherit_from=webapp2.RequestHandler):
 			self.write(result, handler=handler_data.handler)
 
 		def post(self, extra=None):
-			handler_data = self.find_handler('put')
+			handler_data = self.find_handler('post')
 			self.handle_request_filters(handler_data.handler)
 			args = []
 
@@ -145,7 +145,7 @@ def gen_handler_class(sub, inherit_from=webapp2.RequestHandler):
 			self.write(result)
 
 		def put(self, extra=None):
-			handler_data = self.find_handler('post')
+			handler_data = self.find_handler('put')
 			self.handle_request_filters(handler_data.handler)
 			args = []
 
