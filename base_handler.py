@@ -63,22 +63,17 @@ def gen_handler_class(sub, inherit_from=webapp2.RequestHandler):
 				}, raise_exception=True)
 
 		def write(self, data, handler=None, raise_exception=False):
-			data_type = self.request.headers.get('type')
-			if data_type is None:
-				if handler and hasattr(handler, 'default_content_type'):
-					data_type = handler.default_content_type
-				else:
-					data_type = 'json'
+			if handler and hasattr(handler, 'default_content_type'):
+				data_type = handler.default_content_type
+			else:
+				data_type = 'json'
 
 			if not hasattr(MediaType, data_type):
 				if raise_exception:
 					raise HttpResponseException("Content type `{0}` not supported".format(data_type))
 				else: data_type = 'json'
 
-			if hasattr(handler, 'default_content_type') and data_type != handler.default_content_type\
-			or hasattr(handler, 'extra__content_types') and data_type not in handler.extra_content_types:
-				raise HttpResponseException("Content type `{0}` not allowed".format(data_type))
-
+			self.response.headers['Content-Type'] = MediaType.mappings[data_type]
 			self.response.out.write(getattr(MediaType, data_type)(data))
 
 		def handle_request_filters(self, handler):

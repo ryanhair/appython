@@ -16,3 +16,8 @@ class MediaType:
 		if 'data' in info:
 			data = info['data']
 		return template.render(path, data)
+
+	mappings = {
+		'json':'application/json',
+		'html':'text/html'
+	}
