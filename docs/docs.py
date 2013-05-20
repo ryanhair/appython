@@ -19,13 +19,13 @@ class DocHandler(webapp2.RequestHandler):
 
 
 app = webapp2.WSGIApplication([
-    ('/admin/docs', DocHandler)
+	('/admin/docs', DocHandler)
 ], debug=True)
 
 if __name__ == '__main__':
 	import json
 	from google.appengine.ext.ndb import Property
-	from base.base_model import BaseModel
+	from base_model import BaseModel
 	from include import handlers
 
 	def get_subclasses(cls):
