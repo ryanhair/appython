@@ -5,10 +5,10 @@ from google.appengine.ext import db
 import logging
 import uuid
 from google.appengine.ext.ndb import Key, Cursor
-from base import utils
-from base.constants import PASSWORD
-from base.http_response_exception import HttpResponseException
-from base.utils import DateParser
+import utils
+from constants import PASSWORD
+from http_response_exception import HttpResponseException
+from utils import DateParser
 
 NDB_PRIMITIVE_TYPES = [ndb.IntegerProperty, ndb.FloatProperty, ndb.BooleanProperty, ndb.JsonProperty, ndb.BlobProperty]
 SIMPLE_TYPES = (int, long, float, bool, dict, basestring, list)
@@ -25,8 +25,8 @@ class BaseModel(ndb.Model):
 	max_fetch = 500
 
 	# TODO - should eager = True by default?
-	def to_json(self, eager = False):
-		ignore_keys = ['password','updated','created']
+	def to_json(self, eager=False):
+		ignore_keys = ['password', 'updated', 'created']
 		data = {}
 		if self.key:
 			data = {"id": self.key.id()}
@@ -64,13 +64,13 @@ class BaseModel(ndb.Model):
 					continue
 
 				if prop._repeated:
-					list = []
+					l = []
 
 					for each in model:
 						if each:
-							list.append(each.to_json())
+							l.append(each.to_json())
 
-					data[key] = list
+					data[key] = l
 
 				else:
 					data[key] = model.to_json()
@@ -95,7 +95,7 @@ class BaseModel(ndb.Model):
 		return data
 
 	@classmethod
-	def from_json(cls, json, model = None):
+	def from_json(cls, json, model=None):
 		if not json:
 			return cls()
 
@@ -255,12 +255,12 @@ class BaseModel(ndb.Model):
 		self.from_json(json, self)
 
 	@classmethod
-	def id_exists(cls, id, namespace = None):
-		key = Key(cls._get_kind(), id, namespace=namespace)
+	def id_exists(cls, model_id, namespace=None):
+		key = Key(cls._get_kind(), model_id, namespace=namespace)
 		return key.get() is not None
 
 	@classmethod
-	def prop_exists(cls, prop, val, namespace = None):
+	def prop_exists(cls, prop, val, namespace=None):
 		return not not cls.query(prop == val, namespace=namespace).fetch(1)
 
 	@classmethod
@@ -283,7 +283,7 @@ class BaseModel(ndb.Model):
 
 		data, next_cursor, more = query.fetch_page(amount, start_cursor=c)
 		data = {
-			cls._get_kind():data
+			cls._get_kind(): data
 		}
 		if more:
 			data['cursor'] = next_cursor.to_websafe_string()
@@ -378,13 +378,13 @@ class Crud:
 		else:
 			invalid_ids = []
 			valid_items = []
-			for id in ids_arr:
-				item = model.get_by_id(id)
+			for model_id in ids_arr:
+				item = model.get_by_id(model_id)
 				if item is None:
-					invalid_ids.append(id)
+					invalid_ids.append(model_id)
 				else:
 					valid_items.append(item)
 			if len(invalid_ids):
-				raise HttpResponseException(['Entity with id {0} not found'.format(id) for id in invalid_ids])
+				raise HttpResponseException(['Entity with id {0} not found'.format(model_id) for model_id in invalid_ids])
 
 			return valid_items

@@ -1,8 +1,8 @@
 import json
 import os
 from google.appengine.ext.webapp import template
-from base.base_model import BaseModel
-from base.json_model_encoder import ModelEncoder
+from json_model_encoder import ModelEncoder
+
 
 class MediaType:
 	@staticmethod

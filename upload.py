@@ -1,17 +1,15 @@
 import cgi
 import os
 from google.appengine.api import images, capabilities
-import json
 import logging
 from google.appengine.ext import blobstore
-from google.appengine.ext.webapp import blobstore_handlers
-import webapp2
-from base.base_handler import endpoint, get, post
-from base.http_response_exception import HttpResponseException
+from base_handler import endpoint, get, post
+from http_response_exception import HttpResponseException
+
 
 @endpoint('/upload')
 class UploadHandler:
-	def __init__(self, *args, **kwargs):
+	def __init__(self):
 		self._uploads = None
 
 	@get('/')
@@ -51,11 +49,11 @@ class UploadHandler:
 		"""Get uploads sent to this handler.
 
 		Args:
-		  field_name: Only select uploads that were sent as a specific field.
+			field_name: Only select uploads that were sent as a specific field.
 
 		Returns:
-		  A list of BlobInfo records corresponding to each upload.
-		  Empty list if there are no blob-info records for field_name.
+			A list of BlobInfo records corresponding to each upload.
+			Empty list if there are no blob-info records for field_name.
 		"""
 		if self._uploads is None:
 			self._uploads = {}

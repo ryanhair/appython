@@ -1,8 +1,10 @@
 import hashlib
 import datetime
 
+
 def md5_hash(password):
 	return str(hashlib.md5(password).hexdigest())
+
 
 class DateParser:
 	@staticmethod

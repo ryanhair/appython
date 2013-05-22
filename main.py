@@ -9,5 +9,7 @@ for path in handlers:
 
 	__import__(import_path, fromlist=cls)
 
+# noinspection PyUnresolvedReferences
 from download import DownloadHandler
+# noinspection PyUnresolvedReferences
 from upload import UploadHandler

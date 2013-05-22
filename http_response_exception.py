@@ -1,5 +1,6 @@
 import json
 
+
 class HttpResponseException(Exception):
 	def __init__(self, message, code=401):
 		super(HttpResponseException, self).__init__()
@@ -9,7 +10,7 @@ class HttpResponseException(Exception):
 	def to_json(self):
 		return {
 			'error': {
-				'message':self.message
+				'message': self.message
 #				'stacktrace':traceback.format_exc().splitlines()
 			}
 		}

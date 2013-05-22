@@ -2,6 +2,7 @@ import json
 import os
 import webapp2
 
+
 class DocHandler(webapp2.RequestHandler):
 	def get(self):
 		dataPath = os.path.join(os.path.dirname(__file__), 'docs.json')
@@ -39,13 +40,17 @@ if __name__ == '__main__':
 
 		return subclasses
 
-	for path, cls in handlers.iteritems():
-		if not isinstance(cls, list):
-			cls = [cls]
-		__import__(path, fromlist=cls)
+	for path in handlers:
+		parts = path.split('.')
+		cls = path.split('.')[-1]
+		import_path = '.'.join(parts[0:-1])
 
-	from base.download import DownloadHandler
-	from base.upload import UploadHandler
+		__import__(import_path, fromlist=cls)
+
+	# noinspection PyUnresolvedReferences
+	from ..download import DownloadHandler
+	# noinspection PyUnresolvedReferences
+	from ..upload import UploadHandler
 
 	models = {}
 	for subclass in get_subclasses(BaseModel):
@@ -57,19 +62,20 @@ if __name__ == '__main__':
 		for name, prop in vars(subclass).items():
 			if isinstance(prop, Property):
 				subclass_dict[name] = {
-				"type":prop.__class__.__name__[:-8],
-				"required":prop._required,
-				"indexed":prop._indexed,
-				"repeated":prop._repeated,
-				"default":prop._default,
-				"choices":prop._choices
+					"type": prop.__class__.__name__[:-8],
+					"required": prop._required,
+					"indexed": prop._indexed,
+					"repeated": prop._repeated,
+					"default": prop._default,
+					"choices": prop._choices
 				}
 
+	# noinspection Restricted_Python_calls
 	f = open('docs.json', 'w')
 	f.write(json.dumps({
-	'project':'visionhubweb',
-	'version':'0.0.0.1',
-	'models':models
+		'project': 'visionhubweb',
+		'version': '0.0.0.1',
+		'models': models
 	}, indent=4))
 	f.flush()
 	f.close()
