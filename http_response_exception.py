@@ -2,7 +2,7 @@ import json
 
 
 class HttpResponseException(Exception):
-	def __init__(self, message, code=401):
+	def __init__(self, message, code=400):
 		super(HttpResponseException, self).__init__()
 		self.message = message
 		self.error_code = code
