@@ -30,7 +30,7 @@ def gen_handler_class(sub, inherit_from=webapp2.RequestHandler):
 			self.handlers.sort(key=_sort, reverse=True)
 
 		def dispatch(self):
-
+			self.response.headers.add_header('Access-Control-Allow-Origin', '*')
 			if self.request.method in ('PUT', 'POST'):
 				self.data = {}
 				if self.request.body != '' and self.request.content_type == 'application/json':
@@ -109,6 +109,13 @@ def gen_handler_class(sub, inherit_from=webapp2.RequestHandler):
 
 			self.handle_response_filters(handler_data)
 			self.write(result, handler=handler_data.handler)
+
+		def options(self, extra=None):
+			if self.request.method == 'OPTIONS':
+				self.response.headers.add_header('Access-Control-Allow-Methods', ', '.join(self.request_methods))
+				self.response.headers.add_header('Access-Control-Allow-Credentials', 'true')
+				if 'Access-Control-Request-Headers' in self.request.headers:
+					self.response.headers.add_header('Access-Control-Allow-Headers', self.request.headers['Access-Control-Request-Headers'])
 
 		def post(self, extra=None):
 			handler_data = self.find_handler('post')
@@ -272,8 +279,9 @@ class HandlerInfo:
 def endpoint(path=None, methods=('GET', 'PUT', 'POST', 'DELETE'), inherit_from=webapp2.RequestHandler):
 	def _endpoint(sub_handler):
 		setattr(sub_handler, 'base_path', path)
+		setattr(sub_handler, 'request_methods', methods)
 
-		route = webapp2.Route(path + '<extra:.*>', gen_handler_class(sub_handler, inherit_from=inherit_from), methods=methods)
+		route = webapp2.Route(path + '<extra:.*>', gen_handler_class(sub_handler, inherit_from=inherit_from), methods=methods + ['OPTIONS'])
 
 		from main import app
 
