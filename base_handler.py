@@ -42,7 +42,7 @@ def gen_handler_class(sub, inherit_from=webapp2.RequestHandler):
 
 			super(BaseHandler, self).dispatch()
 
-		def handle_exception(self, exception):
+		def handle_exception(self, exception, debug=True):
 			logging.exception(exception)
 
 			self.response.headers['ErrorMessage'] = exception.message
@@ -111,11 +111,10 @@ def gen_handler_class(sub, inherit_from=webapp2.RequestHandler):
 			self.write(result, handler=handler_data.handler)
 
 		def options(self, extra=None):
-			if self.request.method == 'OPTIONS':
-				self.response.headers.add_header('Access-Control-Allow-Methods', ', '.join(self.request_methods))
-				self.response.headers.add_header('Access-Control-Allow-Credentials', 'true')
-				if 'Access-Control-Request-Headers' in self.request.headers:
-					self.response.headers.add_header('Access-Control-Allow-Headers', self.request.headers['Access-Control-Request-Headers'])
+			self.response.headers.add_header('Access-Control-Allow-Methods', ', '.join(self.request_methods))
+			self.response.headers.add_header('Access-Control-Allow-Credentials', 'true')
+			if 'Access-Control-Request-Headers' in self.request.headers:
+				self.response.headers.add_header('Access-Control-Allow-Headers', self.request.headers['Access-Control-Request-Headers'])
 
 		def post(self, extra=None):
 			handler_data = self.find_handler('post')
@@ -276,12 +275,12 @@ class HandlerInfo:
 		self.kwargs = kwargs
 
 
-def endpoint(path=None, methods=('GET', 'PUT', 'POST', 'DELETE'), inherit_from=webapp2.RequestHandler):
+def endpoint(path=None, methods=('GET', 'PUT', 'POST', 'DELETE', 'OPTIONS'), inherit_from=webapp2.RequestHandler):
 	def _endpoint(sub_handler):
 		setattr(sub_handler, 'base_path', path)
 		setattr(sub_handler, 'request_methods', methods)
 
-		route = webapp2.Route(path + '<extra:.*>', gen_handler_class(sub_handler, inherit_from=inherit_from), methods=methods + ['OPTIONS'])
+		route = webapp2.Route(path + '<extra:.*>', gen_handler_class(sub_handler, inherit_from=inherit_from), methods=methods)
 
 		from main import app
 
@@ -290,7 +289,7 @@ def endpoint(path=None, methods=('GET', 'PUT', 'POST', 'DELETE'), inherit_from=w
 	return _endpoint
 
 
-def expects(model, multiple=True, keys_only=False, unique_props=()):
+def expects(model, multiple=False, keys_only=False, unique_props=()):
 	def _expects(fn):
 		fn.expected_type = model
 		fn.expected_type_allow_multiple = multiple
