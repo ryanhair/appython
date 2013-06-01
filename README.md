@@ -105,3 +105,15 @@ includes.py
     handlers = [
         'car.CarHandler'
     ]
+
+To do:
+-----
+*Fix BaseModel's to_json to allow passing in a "graph path", or a dict that represents what should be loaded.
+For example, if I have the following structure:
+                    CarDealershipFranchise
+                   /                       \
+             CarDealershipList      ExecutiveList
+            /                 \
+          CarList          EmployeeList
+
+I could call to_json on CarDealershipFranchise with { ExecutiveList: Load.Basic, carDealershipList: { EmployeeList: {  }, carList: Load.Basic } } to get all the way deep
